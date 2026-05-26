@@ -5,13 +5,36 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { SectionEyebrow } from "@/components/SectionEyebrow";
 import { Button } from "@/components/Button";
+import { submitContact } from "@/lib/supabase/submissions";
 
 export default function Contact() {
+  const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
+  const [work, setWork] = useState("");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitted(true);
+    setErrorMsg(null);
+    setSubmitting(true);
+
+    const result = await submitContact({
+      name,
+      email,
+      company,
+      work_description: work,
+    });
+
+    setSubmitting(false);
+    if (result.ok) {
+      setSubmitted(true);
+    } else {
+      setErrorMsg(result.error);
+    }
   }
 
   return (
@@ -71,7 +94,10 @@ export default function Contact() {
                     type="text"
                     required
                     autoComplete="name"
-                    className="bg-bg-elevated border border-border rounded-sm px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    disabled={submitting}
+                    className="bg-bg-elevated border border-border rounded-sm px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200 disabled:opacity-60"
                     placeholder="Your name"
                   />
                 </div>
@@ -89,7 +115,10 @@ export default function Contact() {
                     type="email"
                     required
                     autoComplete="email"
-                    className="bg-bg-elevated border border-border rounded-sm px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={submitting}
+                    className="bg-bg-elevated border border-border rounded-sm px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200 disabled:opacity-60"
                     placeholder="you@company.com"
                   />
                 </div>
@@ -107,7 +136,10 @@ export default function Contact() {
                   name="company"
                   type="text"
                   autoComplete="organization"
-                  className="bg-bg-elevated border border-border rounded-sm px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                  disabled={submitting}
+                  className="bg-bg-elevated border border-border rounded-sm px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200 disabled:opacity-60"
                   placeholder="Where you work"
                 />
               </div>
@@ -124,18 +156,31 @@ export default function Contact() {
                   name="work"
                   required
                   rows={5}
-                  className="bg-bg-elevated border border-border rounded-sm px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200 resize-none"
+                  value={work}
+                  onChange={(e) => setWork(e.target.value)}
+                  disabled={submitting}
+                  className="bg-bg-elevated border border-border rounded-sm px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200 resize-none disabled:opacity-60"
                   placeholder="Describe the manual, repetitive tasks taking up your team's time..."
                 />
               </div>
+
+              {errorMsg && (
+                <p
+                  role="alert"
+                  className="text-sm text-red-400 font-mono"
+                >
+                  {errorMsg}
+                </p>
+              )}
 
               <div className="pt-2">
                 <Button
                   type="submit"
                   variant="primary"
-                  className="px-8 py-3.5 text-[0.95rem]"
+                  disabled={submitting}
+                  className="px-8 py-3.5 text-[0.95rem] disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Send →
+                  {submitting ? "Sending…" : "Send →"}
                 </Button>
               </div>
             </form>

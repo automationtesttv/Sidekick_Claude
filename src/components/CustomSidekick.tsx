@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { SectionEyebrow } from "./SectionEyebrow";
 import { Button } from "./Button";
+import { submitCustomSidekick } from "@/lib/supabase/submissions";
 
 const presets = [
   "Customer support ticket deflection",
@@ -20,8 +21,14 @@ const budgetOptions = [
 ];
 
 export function CustomSidekick() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
+  const [budget, setBudget] = useState("");
   const [description, setDescription] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   function applyPreset(preset: string) {
     setDescription((prev) =>
@@ -29,9 +36,25 @@ export function CustomSidekick() {
     );
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitted(true);
+    setErrorMsg(null);
+    setSubmitting(true);
+
+    const result = await submitCustomSidekick({
+      name,
+      email,
+      company,
+      budget,
+      process_description: description,
+    });
+
+    setSubmitting(false);
+    if (result.ok) {
+      setSubmitted(true);
+    } else {
+      setErrorMsg(result.error);
+    }
   }
 
   return (
@@ -109,8 +132,11 @@ export function CustomSidekick() {
                       type="text"
                       required
                       autoComplete="name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      disabled={submitting}
                       placeholder="e.g. Jane Smith"
-                      className="bg-bg border border-border px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200"
+                      className="bg-bg border border-border px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200 disabled:opacity-60"
                     />
                   </div>
                   <div className="flex flex-col gap-2">
@@ -121,8 +147,11 @@ export function CustomSidekick() {
                       type="email"
                       required
                       autoComplete="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      disabled={submitting}
                       placeholder="you@company.com"
-                      className="bg-bg border border-border px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200"
+                      className="bg-bg border border-border px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200 disabled:opacity-60"
                     />
                   </div>
                 </div>
@@ -135,8 +164,11 @@ export function CustomSidekick() {
                     <input
                       type="text"
                       autoComplete="organization"
+                      value={company}
+                      onChange={(e) => setCompany(e.target.value)}
+                      disabled={submitting}
                       placeholder="e.g. Acme Industries"
-                      className="bg-bg border border-border px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200"
+                      className="bg-bg border border-border px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200 disabled:opacity-60"
                     />
                   </div>
                   <div className="flex flex-col gap-2">
@@ -145,8 +177,10 @@ export function CustomSidekick() {
                     </label>
                     <div className="relative">
                       <select
-                        className="w-full bg-bg border border-border px-4 py-3 text-sm text-text focus:outline-none focus:border-accent transition-colors duration-200 appearance-none cursor-pointer pr-8"
-                        defaultValue=""
+                        value={budget}
+                        onChange={(e) => setBudget(e.target.value)}
+                        disabled={submitting}
+                        className="w-full bg-bg border border-border px-4 py-3 text-sm text-text focus:outline-none focus:border-accent transition-colors duration-200 appearance-none cursor-pointer pr-8 disabled:opacity-60"
                       >
                         <option value="" disabled>
                           Select range
@@ -176,8 +210,9 @@ export function CustomSidekick() {
                     rows={4}
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
+                    disabled={submitting}
                     placeholder="e.g. Resolving support tickets and routing escalations from Slack into HubSpot..."
-                    className="bg-bg border border-border px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200 resize-none"
+                    className="bg-bg border border-border px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200 resize-none disabled:opacity-60"
                   />
                 </div>
 
@@ -199,13 +234,23 @@ export function CustomSidekick() {
                   </div>
                 </div>
 
+                {errorMsg && (
+                  <p
+                    role="alert"
+                    className="text-sm text-red-400 font-mono"
+                  >
+                    {errorMsg}
+                  </p>
+                )}
+
                 <div className="pt-2">
                   <Button
                     type="submit"
                     variant="primary"
-                    className="w-full justify-center py-3.5 text-[0.95rem]"
+                    disabled={submitting}
+                    className="w-full justify-center py-3.5 text-[0.95rem] disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    Request Custom Sidekick →
+                    {submitting ? "Sending…" : "Request Custom Sidekick →"}
                   </Button>
                 </div>
               </form>
