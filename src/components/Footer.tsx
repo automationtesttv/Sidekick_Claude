@@ -74,10 +74,10 @@ export function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="mailto:hello@sidekicksolutions.ai"
+                  href="mailto:contact@sidekicksolutions.io"
                   className="text-sm text-text-muted hover:text-text transition-colors duration-200 break-all"
                 >
-                  hello@sidekicksolutions.ai
+                  contact@sidekicksolutions.io
                 </a>
               </li>
               <li>
