@@ -1,29 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, Geist, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { NoiseOverlay } from "@/components/NoiseOverlay";
 import { GridBackground } from "@/components/GridBackground";
-
-const instrumentSerif = Instrument_Serif({
-  weight: ["400"],
-  style: ["normal", "italic"],
-  subsets: ["latin"],
-  variable: "--font-instrument-serif",
-  display: "swap",
-});
-
-const geist = Geist({
-  subsets: ["latin"],
-  variable: "--font-geist",
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  weight: ["400", "500"],
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Sidekick Solutions — Custom AI Agents for Operators",
@@ -49,10 +27,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${instrumentSerif.variable} ${geist.variable} ${jetbrainsMono.variable}`}
-    >
+    <html lang="en">
+      <head>
+        {/*
+          Fonts loaded via direct <link> rather than next/font/google.
+          Turbopack's font pipeline in Next 16 emits malformed
+          unicode-range values (U+??) that break CSS parsing on
+          stricter mobile browsers like Android Chrome — see
+          commit notes. This bypasses that pipeline entirely.
+        */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className="min-h-[100dvh] bg-bg text-text antialiased overflow-x-hidden">
         <GridBackground />
         <NoiseOverlay />
