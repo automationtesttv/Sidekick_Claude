@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import { Check } from "lucide-react";
 import { SectionEyebrow } from "./SectionEyebrow";
 import { Button } from "./Button";
 
@@ -8,6 +9,7 @@ const tiers = [
   {
     name: "Pilot",
     price: "$8k",
+    period: "fixed",
     description:
       "A two-week proof of concept. Enough to show your team what's possible and prove the value before a bigger commitment.",
     features: [
@@ -23,6 +25,7 @@ const tiers = [
   {
     name: "Build",
     price: "$24k",
+    period: "fixed",
     description:
       "A complete sidekick, fully deployed and integrated into your stack. Fixed scope, fixed timeline, fixed price.",
     features: [
@@ -38,6 +41,7 @@ const tiers = [
   {
     name: "Partner",
     price: "Custom",
+    period: "monthly",
     description:
       "Ongoing engagement for teams that want to keep building. New sidekicks quarterly, continuous optimization, a team that knows your stack.",
     features: [
@@ -54,46 +58,81 @@ const tiers = [
 
 export function Pricing() {
   return (
-    <section id="pricing" className="py-32 px-6">
+    <section id="pricing" className="py-28 px-6">
       <div className="max-w-[1280px] mx-auto">
-        <SectionEyebrow number="04" label="engagements" />
+        <div className="text-center max-w-[700px] mx-auto mb-16">
+          <SectionEyebrow number="04" label="engagements" />
+          <motion.h2
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut" as const }}
+            className="mt-5 font-display font-medium text-[clamp(2.2rem,4.5vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-text"
+          >
+            Pick your{" "}
+            <em className="font-serif font-normal italic">starting point.</em>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut" as const, delay: 0.1 }}
+            className="mt-5 text-text-muted text-[1.05rem] leading-[1.65]"
+          >
+            Fixed timelines, fixed prices, and no monthly retainers unless you
+            want them.
+          </motion.p>
+        </div>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut" as const }}
-          className="mt-6 font-display text-[clamp(2.4rem,5vw,3.8rem)] leading-[1.05] tracking-[-0.02em] text-text"
-        >
-          Pick your <em>starting point.</em>
-        </motion.h2>
-
-        <div className="mt-16 grid md:grid-cols-3 gap-px bg-border rounded-sm overflow-hidden">
+        <div className="grid md:grid-cols-3 gap-5">
           {tiers.map((tier, i) => (
             <motion.div
               key={tier.name}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: "easeOut" as const, delay: i * 0.09 }}
-              className={`relative bg-bg p-8 md:p-10 flex flex-col ${
-                tier.popular ? "ring-1 ring-accent ring-inset" : ""
+              transition={{ duration: 0.6, ease: "easeOut" as const, delay: i * 0.08 }}
+              className={`relative rounded-2xl p-8 md:p-10 flex flex-col ${
+                tier.popular
+                  ? "bg-text text-bg border-2 border-text card-shadow-hover"
+                  : "bg-bg-elevated border border-border card-shadow"
               }`}
             >
               {tier.popular && (
-                <span className="absolute top-6 right-6 font-mono text-[9px] tracking-[0.18em] text-accent border border-accent px-2.5 py-1 uppercase">
-                  most popular
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 font-mono text-[10px] tracking-[0.18em] uppercase bg-accent text-white px-3 py-1.5 rounded-full">
+                  Most popular
                 </span>
               )}
 
               <div className="mb-8">
-                <p className="font-mono text-[10px] tracking-[0.2em] text-text-subtle uppercase mb-4">
+                <p
+                  className={`font-mono text-[10px] tracking-[0.2em] uppercase mb-5 ${
+                    tier.popular ? "text-accent" : "text-text-subtle"
+                  }`}
+                >
                   {tier.name}
                 </p>
-                <div className="font-display text-[2.4rem] text-text leading-none mb-4">
-                  {tier.price}
+                <div className="flex items-baseline gap-2 mb-5">
+                  <span
+                    className={`font-display font-medium text-[2.8rem] leading-none ${
+                      tier.popular ? "text-bg" : "text-text"
+                    }`}
+                  >
+                    {tier.price}
+                  </span>
+                  <span
+                    className={`font-mono text-xs uppercase tracking-wider ${
+                      tier.popular ? "text-bg/60" : "text-text-subtle"
+                    }`}
+                  >
+                    {tier.period}
+                  </span>
                 </div>
-                <p className="text-text-muted text-sm leading-[1.7]">
+                <p
+                  className={`text-[0.95rem] leading-[1.65] ${
+                    tier.popular ? "text-bg/75" : "text-text-muted"
+                  }`}
+                >
                   {tier.description}
                 </p>
               </div>
@@ -102,10 +141,22 @@ export function Pricing() {
                 {tier.features.map((feature) => (
                   <li
                     key={feature}
-                    className="font-mono text-[11px] text-text-subtle flex items-start gap-2.5"
+                    className="text-[0.9rem] flex items-start gap-3"
                   >
-                    <span className="text-accent mt-px shrink-0">—</span>
-                    {feature}
+                    <span
+                      className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
+                        tier.popular
+                          ? "bg-accent text-white"
+                          : "bg-accent-soft text-accent"
+                      }`}
+                    >
+                      <Check size={12} strokeWidth={3} />
+                    </span>
+                    <span
+                      className={tier.popular ? "text-bg/90" : "text-text"}
+                    >
+                      {feature}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -113,7 +164,7 @@ export function Pricing() {
               <Button
                 variant={tier.popular ? "primary" : "ghost"}
                 href="/contact"
-                className="w-full justify-center"
+                className="w-full"
               >
                 {tier.cta}
               </Button>

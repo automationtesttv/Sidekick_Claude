@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { motion } from "motion/react";
+import { Zap, Clock, Wallet } from "lucide-react";
 import { SectionEyebrow } from "./SectionEyebrow";
 
 interface SliderFieldProps {
@@ -32,10 +33,12 @@ function SliderField({
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between gap-4">
-        <span className="font-mono text-[10px] tracking-[0.15em] text-text-subtle uppercase">
+        <span className="font-mono text-[11px] tracking-[0.16em] text-text-subtle uppercase">
           {label}
         </span>
-        <span className="font-mono text-sm text-text shrink-0">{display}</span>
+        <span className="font-display text-base font-medium text-text shrink-0">
+          {display}
+        </span>
       </div>
       <input
         type="range"
@@ -44,27 +47,30 @@ function SliderField({
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full h-px appearance-none cursor-pointer
+        className="w-full h-1.5 appearance-none cursor-pointer rounded-full
           [&::-webkit-slider-thumb]:appearance-none
-          [&::-webkit-slider-thumb]:w-3.5
-          [&::-webkit-slider-thumb]:h-3.5
+          [&::-webkit-slider-thumb]:w-5
+          [&::-webkit-slider-thumb]:h-5
           [&::-webkit-slider-thumb]:rounded-full
           [&::-webkit-slider-thumb]:bg-accent
           [&::-webkit-slider-thumb]:cursor-pointer
-          [&::-webkit-slider-thumb]:border-0
-          [&::-moz-range-thumb]:w-3.5
-          [&::-moz-range-thumb]:h-3.5
+          [&::-webkit-slider-thumb]:border-2
+          [&::-webkit-slider-thumb]:border-white
+          [&::-webkit-slider-thumb]:shadow-[0_2px_8px_rgba(79,70,229,0.35)]
+          [&::-moz-range-thumb]:w-5
+          [&::-moz-range-thumb]:h-5
           [&::-moz-range-thumb]:rounded-full
           [&::-moz-range-thumb]:bg-accent
-          [&::-moz-range-thumb]:border-0
+          [&::-moz-range-thumb]:border-2
+          [&::-moz-range-thumb]:border-white
           [&::-moz-range-thumb]:cursor-pointer"
         style={{
           background: `linear-gradient(to right, var(--accent) 0%, var(--accent) ${pct}%, var(--border) ${pct}%, var(--border) 100%)`,
         }}
       />
       <div className="flex justify-between">
-        <span className="font-mono text-[9px] text-text-subtle">{minLabel}</span>
-        <span className="font-mono text-[9px] text-text-subtle">{maxLabel}</span>
+        <span className="font-mono text-[10px] text-text-subtle">{minLabel}</span>
+        <span className="font-mono text-[10px] text-text-subtle">{maxLabel}</span>
       </div>
     </div>
   );
@@ -88,34 +94,41 @@ export function ROICalculator() {
   }, [hoursPerWeek, teamSize, laborRate, deflection]);
 
   return (
-    <section className="py-32 px-6">
+    <section className="py-28 px-6 bg-surface">
       <div className="max-w-[1280px] mx-auto">
-        <SectionEyebrow label="value engine" />
+        <div className="text-center max-w-[700px] mx-auto mb-16">
+          <SectionEyebrow label="value engine" />
+          <motion.h2
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut" as const }}
+            className="mt-5 font-display font-medium text-[clamp(2.2rem,4.5vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-text"
+          >
+            Calculate your{" "}
+            <em className="font-serif font-normal italic">sidekick ROI.</em>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut" as const, delay: 0.1 }}
+            className="mt-5 text-text-muted text-[1.05rem] leading-[1.65]"
+          >
+            Drag the sliders to match your team. The numbers on the right update
+            in real time.
+          </motion.p>
+        </div>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut" as const }}
-          className="mt-6 font-display text-[clamp(2.4rem,5vw,3.8rem)] leading-[1.05] tracking-[-0.02em] text-text"
-        >
-          Calculate your <em>sidekick ROI.</em>
-        </motion.h2>
-
-        <div className="mt-16 grid lg:grid-cols-[1fr_420px] gap-6 items-start">
+        <div className="grid lg:grid-cols-[1fr_460px] gap-5 items-start">
           {/* Sliders panel */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: "easeOut" as const, delay: 0.08 }}
-            className="bg-bg-elevated border border-border p-8 md:p-10 space-y-10"
+            className="bg-bg-elevated border border-border rounded-2xl p-8 md:p-10 card-shadow space-y-10"
           >
-            <p className="text-text-muted text-sm leading-[1.75]">
-              Adjust the inputs to match your team&apos;s current workload. The
-              numbers on the right update in real time.
-            </p>
-
             <SliderField
               label="Manual hours per agent / week"
               value={hoursPerWeek}
@@ -168,58 +181,57 @@ export function ROICalculator() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: "easeOut" as const, delay: 0.16 }}
-            className="bg-bg-elevated border border-border p-8 md:p-10 space-y-8"
+            className="bg-text text-bg rounded-2xl p-8 md:p-10 space-y-7"
           >
-            <p className="font-mono text-[10px] tracking-[0.2em] text-text-subtle uppercase">
+            <p className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.2em] text-bg/60 uppercase">
+              <Zap size={12} className="text-accent" />
               Estimated recoverable capital
             </p>
 
-            <div className="grid grid-cols-2 gap-6 pb-8 border-b border-border">
-              <div>
-                <p className="font-mono text-[9px] tracking-[0.13em] text-text-subtle uppercase mb-3">
-                  Time reclaimed (monthly)
-                </p>
-                <p className="font-display text-[2.6rem] text-text leading-none tabular-nums">
+            <div className="grid grid-cols-2 gap-5">
+              <div className="bg-white/[0.04] border border-white/[0.08] rounded-xl p-5">
+                <div className="flex items-center gap-2 mb-3 text-bg/60">
+                  <Clock size={14} strokeWidth={1.75} />
+                  <span className="font-mono text-[10px] tracking-[0.13em] uppercase">
+                    Time / mo
+                  </span>
+                </div>
+                <p className="font-display font-medium text-[2rem] leading-none tabular-nums text-bg">
                   {results.monthlyHours}
-                  <span className="text-[1.4rem] ml-1">hrs</span>
-                </p>
-                <p className="font-mono text-[10px] text-text-subtle mt-2">
-                  Recouped operations time
+                  <span className="text-[1.1rem] ml-1 text-bg/70">hrs</span>
                 </p>
               </div>
-              <div>
-                <p className="font-mono text-[9px] tracking-[0.13em] text-text-subtle uppercase mb-3">
-                  Capital reclaimed (monthly)
-                </p>
-                <p className="font-display text-[2.6rem] text-accent leading-none tabular-nums">
+              <div className="bg-white/[0.04] border border-white/[0.08] rounded-xl p-5">
+                <div className="flex items-center gap-2 mb-3 text-bg/60">
+                  <Wallet size={14} strokeWidth={1.75} />
+                  <span className="font-mono text-[10px] tracking-[0.13em] uppercase">
+                    Capital / mo
+                  </span>
+                </div>
+                <p className="font-display font-medium text-[2rem] leading-none tabular-nums text-accent">
                   ${results.monthlyCapital.toLocaleString()}
-                </p>
-                <p className="font-mono text-[10px] text-text-subtle mt-2">
-                  Direct labor overhead saved
                 </p>
               </div>
             </div>
 
-            <div>
-              <p className="font-mono text-[9px] tracking-[0.13em] text-text-subtle uppercase mb-4">
-                Annualized team capital recovered
+            <div className="pt-5 border-t border-white/[0.08]">
+              <p className="font-mono text-[10px] tracking-[0.16em] text-bg/60 uppercase mb-4">
+                Annualized capital recovered
               </p>
-              <p className="font-display text-[3.8rem] text-text leading-none tabular-nums">
+              <p className="font-display font-medium text-[3.2rem] leading-none tabular-nums text-bg">
                 ${results.annualized.toLocaleString()}
               </p>
-              <p className="text-text-muted text-sm leading-[1.7] mt-4 max-w-[300px]">
+              <p className="text-bg/70 text-[0.9rem] leading-[1.6] mt-4">
                 What your team could reclaim by deploying a sidekick against
                 this workload.
               </p>
             </div>
 
-            <div className="pt-4 border-t border-border flex items-center justify-between">
-              <span className="font-mono text-[10px] text-text-subtle uppercase tracking-[0.12em]">
+            <div className="pt-5 border-t border-white/[0.08] flex items-center justify-between">
+              <span className="font-mono text-[10px] tracking-[0.13em] text-bg/60 uppercase">
                 Typical time to deploy
               </span>
-              <span className="font-mono text-[11px] text-text">
-                Under 4 weeks
-              </span>
+              <span className="font-mono text-xs text-bg">Under 4 weeks</span>
             </div>
           </motion.div>
         </div>

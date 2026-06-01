@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
+import { Building2 } from "lucide-react";
 import { SectionEyebrow } from "./SectionEyebrow";
 import { Button } from "./Button";
 import { submitCustomSidekick } from "@/lib/supabase/submissions";
@@ -58,11 +59,9 @@ export function CustomSidekick() {
   }
 
   return (
-    <section className="py-32 px-6 bg-bg-elevated">
+    <section className="py-28 px-6 bg-surface">
       <div className="max-w-[1280px] mx-auto">
-        <SectionEyebrow label="custom build" />
-
-        <div className="mt-14 grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           {/* Left — description */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -70,13 +69,15 @@ export function CustomSidekick() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: "easeOut" as const }}
           >
-            <h2 className="font-display text-[clamp(2.4rem,5vw,3.8rem)] leading-[1.05] tracking-[-0.02em] text-text">
-              Request a custom <em>AI sidekick.</em>
+            <SectionEyebrow label="custom build" />
+            <h2 className="mt-5 font-display font-medium text-[clamp(2.2rem,4.5vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-text">
+              Request a custom{" "}
+              <em className="font-serif font-normal italic">AI sidekick.</em>
             </h2>
-            <p className="mt-6 text-text-muted text-[0.95rem] leading-[1.75]">
+            <p className="mt-6 text-text-muted text-[1.05rem] leading-[1.7]">
               Tell us about the workflow you want automated. We&apos;ll scope
-              it, design it, and send back a written proposal with a fixed price
-              — no commitment required.
+              it, design it, and send back a written proposal with a fixed
+              price — no commitment required.
             </p>
 
             <ul className="mt-10 space-y-5">
@@ -86,10 +87,10 @@ export function CustomSidekick() {
                 "You receive a written proposal with timeline and fixed price",
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-4">
-                  <span className="font-mono text-[11px] text-accent mt-0.5 shrink-0 w-5">
-                    {String(i + 1).padStart(2, "0")}
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent text-white font-mono text-xs font-medium">
+                    {i + 1}
                   </span>
-                  <span className="text-text-muted text-sm leading-[1.75]">
+                  <span className="text-text text-[0.95rem] leading-[1.7] pt-1">
                     {item}
                   </span>
                 </li>
@@ -103,157 +104,169 @@ export function CustomSidekick() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: "easeOut" as const, delay: 0.1 }}
+            className="bg-bg-elevated border border-border rounded-2xl p-8 md:p-10 card-shadow"
           >
             {submitted ? (
-              <div className="flex items-start gap-4 p-7 border border-border bg-bg">
+              <div className="flex items-start gap-4 py-8">
                 <span
                   aria-label="Success"
-                  className="text-accent text-xl leading-none mt-0.5 shrink-0"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent text-white text-lg leading-none"
                 >
                   ✓
                 </span>
                 <div>
-                  <p className="font-body text-text font-medium mb-1">
+                  <p className="font-display text-xl font-medium text-text mb-2">
                     Proposal request received.
                   </p>
-                  <p className="text-text-muted text-sm leading-relaxed">
+                  <p className="text-text-muted text-base leading-[1.65]">
                     We&apos;ll scope your sidekick and be back within 24 hours.
                   </p>
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="flex flex-col gap-2">
-                    <label className="font-mono text-[10px] tracking-[0.18em] text-text-subtle uppercase">
-                      Your name
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      autoComplete="name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      disabled={submitting}
-                      placeholder="e.g. Jane Smith"
-                      className="bg-bg border border-border px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200 disabled:opacity-60"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <label className="font-mono text-[10px] tracking-[0.18em] text-text-subtle uppercase">
-                      Work email
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      autoComplete="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      disabled={submitting}
-                      placeholder="you@company.com"
-                      className="bg-bg border border-border px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200 disabled:opacity-60"
-                    />
-                  </div>
+              <>
+                <div className="flex items-center gap-3 mb-8 pb-6 border-b border-border">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent-soft text-accent">
+                    <Building2 size={18} strokeWidth={1.75} />
+                  </span>
+                  <h3 className="font-display text-lg font-medium text-text">
+                    Sidekick proposal intake
+                  </h3>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="flex flex-col gap-2">
-                    <label className="font-mono text-[10px] tracking-[0.18em] text-text-subtle uppercase">
-                      Company
-                    </label>
-                    <input
-                      type="text"
-                      autoComplete="organization"
-                      value={company}
-                      onChange={(e) => setCompany(e.target.value)}
-                      disabled={submitting}
-                      placeholder="e.g. Acme Industries"
-                      className="bg-bg border border-border px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200 disabled:opacity-60"
-                    />
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <label className="font-mono text-[10px] tracking-[0.18em] text-text-subtle uppercase">
-                      Approx. budget
-                    </label>
-                    <div className="relative">
-                      <select
-                        value={budget}
-                        onChange={(e) => setBudget(e.target.value)}
+                <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="flex flex-col gap-2">
+                      <label className="font-mono text-[10px] tracking-[0.18em] text-text-subtle uppercase">
+                        Your name
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        autoComplete="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                         disabled={submitting}
-                        className="w-full bg-bg border border-border px-4 py-3 text-sm text-text focus:outline-none focus:border-accent transition-colors duration-200 appearance-none cursor-pointer pr-8 disabled:opacity-60"
-                      >
-                        <option value="" disabled>
-                          Select range
-                        </option>
-                        {budgetOptions.map((opt) => (
-                          <option key={opt} value={opt}>
-                            {opt}
-                          </option>
-                        ))}
-                      </select>
-                      <span
-                        aria-hidden="true"
-                        className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 font-mono text-[10px] text-text-subtle"
-                      >
-                        ▾
-                      </span>
+                        placeholder="e.g. Jane Smith"
+                        className="bg-bg border border-border rounded-lg px-4 py-3 text-base text-text placeholder:text-text-subtle focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all duration-200 disabled:opacity-60"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label className="font-mono text-[10px] tracking-[0.18em] text-text-subtle uppercase">
+                        Work email
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        autoComplete="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        disabled={submitting}
+                        placeholder="you@company.com"
+                        className="bg-bg border border-border rounded-lg px-4 py-3 text-base text-text placeholder:text-text-subtle focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all duration-200 disabled:opacity-60"
+                      />
                     </div>
                   </div>
-                </div>
 
-                <div className="flex flex-col gap-2">
-                  <label className="font-mono text-[10px] tracking-[0.18em] text-text-subtle uppercase">
-                    Describe the process to automate
-                  </label>
-                  <textarea
-                    required
-                    rows={4}
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    disabled={submitting}
-                    placeholder="e.g. Resolving support tickets and routing escalations from Slack into HubSpot..."
-                    className="bg-bg border border-border px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200 resize-none disabled:opacity-60"
-                  />
-                </div>
-
-                <div>
-                  <p className="font-mono text-[10px] tracking-[0.15em] text-text-subtle uppercase mb-3">
-                    Quick presets
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {presets.map((preset) => (
-                      <button
-                        key={preset}
-                        type="button"
-                        onClick={() => applyPreset(preset)}
-                        className="font-mono text-[10px] text-text-subtle border border-border px-3 py-1.5 hover:border-accent hover:text-accent transition-colors duration-200 cursor-pointer"
-                      >
-                        {preset}
-                      </button>
-                    ))}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="flex flex-col gap-2">
+                      <label className="font-mono text-[10px] tracking-[0.18em] text-text-subtle uppercase">
+                        Company
+                      </label>
+                      <input
+                        type="text"
+                        autoComplete="organization"
+                        value={company}
+                        onChange={(e) => setCompany(e.target.value)}
+                        disabled={submitting}
+                        placeholder="e.g. Acme Industries"
+                        className="bg-bg border border-border rounded-lg px-4 py-3 text-base text-text placeholder:text-text-subtle focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all duration-200 disabled:opacity-60"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label className="font-mono text-[10px] tracking-[0.18em] text-text-subtle uppercase">
+                        Approx. budget
+                      </label>
+                      <div className="relative">
+                        <select
+                          value={budget}
+                          onChange={(e) => setBudget(e.target.value)}
+                          disabled={submitting}
+                          className="w-full bg-bg border border-border rounded-lg px-4 py-3 text-base text-text focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all duration-200 appearance-none cursor-pointer pr-9 disabled:opacity-60"
+                        >
+                          <option value="" disabled>
+                            Select range
+                          </option>
+                          {budgetOptions.map((opt) => (
+                            <option key={opt} value={opt}>
+                              {opt}
+                            </option>
+                          ))}
+                        </select>
+                        <span
+                          aria-hidden="true"
+                          className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 font-mono text-xs text-text-subtle"
+                        >
+                          ▾
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                </div>
 
-                {errorMsg && (
-                  <p
-                    role="alert"
-                    className="text-sm text-red-400 font-mono"
-                  >
-                    {errorMsg}
-                  </p>
-                )}
+                  <div className="flex flex-col gap-2">
+                    <label className="font-mono text-[10px] tracking-[0.18em] text-text-subtle uppercase">
+                      Describe the process to automate
+                    </label>
+                    <textarea
+                      required
+                      rows={4}
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                      disabled={submitting}
+                      placeholder="e.g. Resolving support tickets and routing escalations from Slack into HubSpot..."
+                      className="bg-bg border border-border rounded-lg px-4 py-3 text-base text-text placeholder:text-text-subtle focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all duration-200 resize-none disabled:opacity-60"
+                    />
+                  </div>
 
-                <div className="pt-2">
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    disabled={submitting}
-                    className="w-full justify-center py-3.5 text-[0.95rem] disabled:opacity-60 disabled:cursor-not-allowed"
-                  >
-                    {submitting ? "Sending…" : "Request Custom Sidekick →"}
-                  </Button>
-                </div>
-              </form>
+                  <div>
+                    <p className="font-mono text-[10px] tracking-[0.15em] text-text-subtle uppercase mb-3">
+                      Quick presets
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {presets.map((preset) => (
+                        <button
+                          key={preset}
+                          type="button"
+                          onClick={() => applyPreset(preset)}
+                          className="text-xs text-text-muted bg-bg border border-border rounded-full px-3 py-1.5 hover:border-accent hover:text-accent hover:bg-accent-soft transition-all duration-200 cursor-pointer"
+                        >
+                          {preset}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {errorMsg && (
+                    <p
+                      role="alert"
+                      className="text-sm text-danger font-mono bg-danger-soft border border-danger/20 rounded-lg p-3"
+                    >
+                      {errorMsg}
+                    </p>
+                  )}
+
+                  <div className="pt-2">
+                    <Button
+                      type="submit"
+                      variant="primary"
+                      disabled={submitting}
+                      className="w-full"
+                    >
+                      {submitting ? "Sending…" : "Request Custom Sidekick →"}
+                    </Button>
+                  </div>
+                </form>
+              </>
             )}
           </motion.div>
         </div>

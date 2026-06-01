@@ -41,31 +41,32 @@ export default function Contact() {
     <>
       <Nav />
       <main className="min-h-screen pt-32 pb-32 px-6">
-        <div className="max-w-[600px] mx-auto">
-          <SectionEyebrow label="get in touch" />
-
-          <h1 className="mt-6 font-display text-[clamp(3rem,7vw,5.5rem)] leading-[0.95] tracking-[-0.02em] text-text">
-            Let&apos;s <em>talk.</em>
-          </h1>
-
-          <p className="mt-5 text-text-muted text-[0.95rem] leading-[1.7]">
-            Tell us what you&apos;re working with. The more specific you are,
-            the faster we can figure out if we&apos;re a good fit.
-          </p>
+        <div className="max-w-[640px] mx-auto">
+          <div className="text-center mb-12">
+            <SectionEyebrow label="get in touch" />
+            <h1 className="mt-5 font-display font-medium text-[clamp(2.6rem,6vw,4rem)] leading-[1.05] tracking-[-0.025em] text-text">
+              Let&apos;s{" "}
+              <em className="font-serif font-normal italic">talk.</em>
+            </h1>
+            <p className="mt-5 text-text-muted text-[1.05rem] leading-[1.65]">
+              Tell us what you&apos;re working with. The more specific you are,
+              the faster we can figure out if we&apos;re a good fit.
+            </p>
+          </div>
 
           {submitted ? (
-            <div className="mt-14 flex items-start gap-4 p-7 border border-border rounded-sm bg-bg-elevated">
+            <div className="bg-bg-elevated border border-border rounded-2xl p-8 card-shadow flex items-start gap-4">
               <span
                 aria-label="Success"
-                className="text-accent text-xl leading-none mt-0.5 shrink-0"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent text-white text-lg leading-none"
               >
                 ✓
               </span>
               <div>
-                <p className="font-body text-text font-medium mb-1">
+                <p className="font-display text-xl font-medium text-text mb-2">
                   Got it. We&apos;ll be in touch within 24 hours.
                 </p>
-                <p className="text-text-muted text-sm">
+                <p className="text-text-muted text-base leading-[1.65]">
                   In the meantime, feel free to read more about{" "}
                   <a href="/#process" className="text-accent hover:underline">
                     how we work
@@ -77,10 +78,10 @@ export default function Contact() {
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="mt-14 space-y-6"
+              className="bg-bg-elevated border border-border rounded-2xl p-8 md:p-10 card-shadow space-y-6"
               noValidate
             >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="flex flex-col gap-2">
                   <label
                     htmlFor="name"
@@ -97,7 +98,7 @@ export default function Contact() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     disabled={submitting}
-                    className="bg-bg-elevated border border-border rounded-sm px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200 disabled:opacity-60"
+                    className="bg-bg border border-border rounded-lg px-4 py-3 text-base text-text placeholder:text-text-subtle focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all duration-200 disabled:opacity-60"
                     placeholder="Your name"
                   />
                 </div>
@@ -118,7 +119,7 @@ export default function Contact() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     disabled={submitting}
-                    className="bg-bg-elevated border border-border rounded-sm px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200 disabled:opacity-60"
+                    className="bg-bg border border-border rounded-lg px-4 py-3 text-base text-text placeholder:text-text-subtle focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all duration-200 disabled:opacity-60"
                     placeholder="you@company.com"
                   />
                 </div>
@@ -139,7 +140,7 @@ export default function Contact() {
                   value={company}
                   onChange={(e) => setCompany(e.target.value)}
                   disabled={submitting}
-                  className="bg-bg-elevated border border-border rounded-sm px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200 disabled:opacity-60"
+                  className="bg-bg border border-border rounded-lg px-4 py-3 text-base text-text placeholder:text-text-subtle focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all duration-200 disabled:opacity-60"
                   placeholder="Where you work"
                 />
               </div>
@@ -159,7 +160,7 @@ export default function Contact() {
                   value={work}
                   onChange={(e) => setWork(e.target.value)}
                   disabled={submitting}
-                  className="bg-bg-elevated border border-border rounded-sm px-4 py-3 text-sm text-text placeholder:text-text-subtle focus:outline-none focus:border-accent transition-colors duration-200 resize-none disabled:opacity-60"
+                  className="bg-bg border border-border rounded-lg px-4 py-3 text-base text-text placeholder:text-text-subtle focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/15 transition-all duration-200 resize-none disabled:opacity-60"
                   placeholder="Describe the manual, repetitive tasks taking up your team's time..."
                 />
               </div>
@@ -167,22 +168,20 @@ export default function Contact() {
               {errorMsg && (
                 <p
                   role="alert"
-                  className="text-sm text-red-400 font-mono"
+                  className="text-sm text-danger font-mono bg-danger-soft border border-danger/20 rounded-lg p-3"
                 >
                   {errorMsg}
                 </p>
               )}
 
-              <div className="pt-2">
-                <Button
-                  type="submit"
-                  variant="primary"
-                  disabled={submitting}
-                  className="px-8 py-3.5 text-[0.95rem] disabled:opacity-60 disabled:cursor-not-allowed"
-                >
-                  {submitting ? "Sending…" : "Send →"}
-                </Button>
-              </div>
+              <Button
+                type="submit"
+                variant="primary"
+                disabled={submitting}
+                className="w-full"
+              >
+                {submitting ? "Sending…" : "Send →"}
+              </Button>
             </form>
           )}
         </div>

@@ -30,29 +30,38 @@ const faqs = [
 
 export function FAQ() {
   return (
-    <section id="faq" className="py-32 px-6 bg-bg-elevated">
+    <section id="faq" className="py-28 px-6">
       <div className="max-w-[1280px] mx-auto">
-        <SectionEyebrow number="05" label="questions" />
+        <div className="text-center max-w-[700px] mx-auto mb-16">
+          <SectionEyebrow number="06" label="questions" />
+          <h2 className="mt-5 font-display font-medium text-[clamp(2.2rem,4.5vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-text">
+            Things people{" "}
+            <em className="font-serif font-normal italic">ask.</em>
+          </h2>
+          <p className="mt-5 text-text-muted text-[1.05rem] leading-[1.65]">
+            If your question isn&apos;t here, just book a call — we&apos;d
+            rather answer it directly.
+          </p>
+        </div>
 
-        <h2 className="mt-6 font-display text-[clamp(2.4rem,5vw,3.8rem)] leading-[1.05] tracking-[-0.02em] text-text mb-16">
-          Things people <em>ask.</em>
-        </h2>
-
-        <div className="max-w-[780px] divide-y divide-border border-t border-border">
+        <div className="max-w-[820px] mx-auto space-y-3">
           {faqs.map((faq) => (
-            <details key={faq.question} className="group py-6">
-              <summary className="flex items-center justify-between gap-6 cursor-pointer list-none select-none">
-                <span className="font-body text-text group-open:text-accent text-[0.95rem] transition-colors duration-200">
+            <details
+              key={faq.question}
+              className="group bg-bg-elevated border border-border rounded-2xl card-shadow open:border-accent/40 transition-colors duration-200"
+            >
+              <summary className="flex items-center justify-between gap-6 cursor-pointer list-none select-none px-7 py-6">
+                <span className="font-display text-[1.1rem] font-medium text-text">
                   {faq.question}
                 </span>
                 <span
                   aria-hidden="true"
-                  className="font-mono text-text-subtle text-xl shrink-0 group-open:rotate-45 transition-transform duration-200 leading-none"
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent font-mono text-lg group-open:rotate-45 transition-transform duration-200 leading-none"
                 >
                   +
                 </span>
               </summary>
-              <p className="mt-4 text-text-muted text-sm leading-[1.75] max-w-[660px]">
+              <p className="px-7 pb-7 text-text-muted text-[0.95rem] leading-[1.75] max-w-[680px]">
                 {faq.answer}
               </p>
             </details>

@@ -5,8 +5,9 @@ interface SectionEyebrowProps {
 
 export function SectionEyebrow({ number, label }: SectionEyebrowProps) {
   return (
-    <p className="font-mono text-[11px] tracking-[0.2em] text-text-subtle uppercase">
-      {number ? `[ ${number} — ${label} ]` : `[ ${label} ]`}
+    <p className="inline-flex items-center gap-2 font-mono text-xs tracking-[0.18em] text-accent uppercase">
+      <span aria-hidden="true" className="w-6 h-px bg-accent" />
+      {number ? `${number} — ${label}` : label}
     </p>
   );
 }

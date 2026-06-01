@@ -39,7 +39,7 @@ function StatCounter({
   return (
     <span
       ref={ref}
-      className="font-display text-[clamp(3rem,6vw,5rem)] leading-none text-accent"
+      className="font-display font-medium text-[clamp(2.6rem,5vw,4rem)] leading-none tabular-nums text-bg"
     >
       {"0" + suffix}
     </span>
@@ -48,17 +48,19 @@ function StatCounter({
 
 export function Stats() {
   return (
-    <section id="stats" className="py-24 px-6 bg-bg-elevated border-y border-border">
+    <section id="stats" className="py-20 px-6">
       <div className="max-w-[1280px] mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-6">
-          {stats.map((stat) => (
-            <div key={stat.label} className="flex flex-col gap-3">
-              <StatCounter value={stat.value} suffix={stat.suffix} />
-              <span className="font-mono text-[11px] text-text-subtle leading-snug max-w-[140px]">
-                {stat.label}
-              </span>
-            </div>
-          ))}
+        <div className="bg-text text-bg rounded-3xl px-8 md:px-16 py-14 md:py-16">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-6">
+            {stats.map((stat) => (
+              <div key={stat.label} className="flex flex-col gap-3">
+                <StatCounter value={stat.value} suffix={stat.suffix} />
+                <span className="text-sm text-bg/70 leading-snug max-w-[160px]">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

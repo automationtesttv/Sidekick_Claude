@@ -1,11 +1,13 @@
 "use client";
 
 import { motion } from "motion/react";
+import { Sparkles, MessageSquare, Workflow, BookOpen } from "lucide-react";
 import { SectionEyebrow } from "./SectionEyebrow";
 
 const services = [
   {
-    number: "/01",
+    number: "01",
+    icon: Sparkles,
     title: "Sales Sidekick",
     description:
       "Qualifies inbound leads automatically, drafts personalized outreach, and books meetings directly into your calendar — before a human has to look at anything.",
@@ -16,7 +18,8 @@ const services = [
     ],
   },
   {
-    number: "/02",
+    number: "02",
+    icon: MessageSquare,
     title: "Support Sidekick",
     description:
       "Handles tier-1 tickets, escalates intelligently when a human is needed, and gets smarter from every interaction with your docs and past resolutions.",
@@ -27,7 +30,8 @@ const services = [
     ],
   },
   {
-    number: "/03",
+    number: "03",
+    icon: Workflow,
     title: "Ops Sidekick",
     description:
       "Automates internal workflows, generates reports on schedule, and removes the back-and-forth from approval chains so things keep moving.",
@@ -38,7 +42,8 @@ const services = [
     ],
   },
   {
-    number: "/04",
+    number: "04",
+    icon: BookOpen,
     title: "Knowledge Sidekick",
     description:
       "A private brain for your company — searches your docs, surfaces past decisions, and answers the questions your team keeps asking each other.",
@@ -52,62 +57,75 @@ const services = [
 
 export function Services() {
   return (
-    <section id="services" className="py-32 px-6 bg-bg-elevated">
+    <section id="services" className="py-28 px-6 bg-surface">
       <div className="max-w-[1280px] mx-auto">
-        <SectionEyebrow number="02" label="what we build" />
+        <div className="text-center max-w-[700px] mx-auto mb-16">
+          <SectionEyebrow number="02" label="what we build" />
+          <motion.h2
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut" as const }}
+            className="mt-5 font-display font-medium text-[clamp(2.2rem,4.5vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-text"
+          >
+            Four kinds of{" "}
+            <em className="font-serif font-normal italic">sidekicks.</em>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: "easeOut" as const, delay: 0.1 }}
+            className="mt-5 text-text-muted text-[1.05rem] leading-[1.65]"
+          >
+            Pick the agent that matches your highest-leverage workflow. We
+            tailor it to your stack and your team.
+          </motion.p>
+        </div>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut" as const }}
-          className="mt-6 font-display text-[clamp(2.4rem,5vw,3.8rem)] leading-[1.05] tracking-[-0.02em] text-text"
-        >
-          Four kinds of <em>sidekicks.</em>
-        </motion.h2>
+        <div className="grid md:grid-cols-2 gap-5">
+          {services.map((service, i) => {
+            const Icon = service.icon;
+            return (
+              <motion.div
+                key={service.number}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, ease: "easeOut" as const, delay: i * 0.06 }}
+                className="group relative bg-bg-elevated border border-border rounded-2xl p-8 md:p-9 card-shadow hover:card-shadow-hover hover:border-accent/40 hover:-translate-y-0.5 transition-all duration-300"
+              >
+                <div className="flex items-start justify-between mb-6">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-soft text-accent group-hover:bg-accent group-hover:text-white transition-colors duration-300">
+                    <Icon size={20} strokeWidth={1.75} />
+                  </div>
+                  <span className="font-mono text-xs tracking-[0.18em] text-text-subtle uppercase">
+                    / {service.number}
+                  </span>
+                </div>
 
-        <div className="mt-16 grid md:grid-cols-2 gap-px bg-border rounded-sm overflow-hidden">
-          {services.map((service, i) => (
-            <motion.div
-              key={service.number}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: "easeOut" as const, delay: i * 0.07 }}
-              className="group relative bg-bg-elevated p-8 md:p-10 hover:bg-surface transition-colors duration-300 cursor-default"
-            >
-              <div className="mb-6">
-                <span className="font-mono text-[1.6rem] text-text-subtle group-hover:text-accent transition-colors duration-300">
-                  {service.number}
-                </span>
-              </div>
+                <h3 className="font-display font-medium text-[1.5rem] text-text mb-3 tracking-tight">
+                  {service.title}
+                </h3>
 
-              <h3 className="font-display text-[1.4rem] text-text mb-3">
-                {service.title}
-              </h3>
+                <p className="text-text-muted text-base leading-[1.65] mb-7">
+                  {service.description}
+                </p>
 
-              <p className="text-text-muted text-sm leading-[1.7] mb-7">
-                {service.description}
-              </p>
-
-              <ul className="space-y-2.5">
-                {service.capabilities.map((cap) => (
-                  <li
-                    key={cap}
-                    className="font-mono text-[11px] text-text-subtle flex items-center gap-2.5"
-                  >
-                    <span className="text-accent text-[10px]">—</span>
-                    {cap}
-                  </li>
-                ))}
-              </ul>
-
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 border border-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-sm"
-              />
-            </motion.div>
-          ))}
+                <ul className="space-y-2.5 pt-6 border-t border-border">
+                  {service.capabilities.map((cap) => (
+                    <li
+                      key={cap}
+                      className="font-mono text-xs text-text-subtle flex items-center gap-2.5 uppercase tracking-wider"
+                    >
+                      <span className="text-accent">+</span>
+                      {cap}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

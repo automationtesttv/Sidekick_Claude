@@ -8,8 +8,8 @@ import { Menu, X } from "lucide-react";
 const navLinks = [
   { label: "Services", href: "/#services" },
   { label: "Process", href: "/#process" },
-  { label: "Work", href: "/#stats" },
   { label: "Pricing", href: "/#pricing" },
+  { label: "FAQ", href: "/#faq" },
 ];
 
 export function Nav() {
@@ -17,7 +17,8 @@ export function Nav() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -34,17 +35,17 @@ export function Nav() {
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           scrolled
-            ? "border-b border-border bg-bg/80 backdrop-blur-md"
-            : "bg-transparent"
+            ? "border-b border-border bg-bg/85 backdrop-blur-md"
+            : "border-b border-transparent bg-transparent"
         }`}
       >
         <nav
           aria-label="Main navigation"
-          className="max-w-[1280px] mx-auto px-6 h-[60px] flex items-center justify-between"
+          className="max-w-[1280px] mx-auto px-6 h-16 flex items-center justify-between"
         >
           <Link
             href="/"
-            className="font-body text-sm font-medium text-text tracking-tight shrink-0"
+            className="font-body text-base font-medium text-text tracking-tight shrink-0"
           >
             Sidekick<span className="text-accent">◆</span>Solutions
           </Link>
@@ -54,7 +55,7 @@ export function Nav() {
               <li key={link.label}>
                 <Link
                   href={link.href}
-                  className="text-sm text-text-muted hover:text-text transition-colors duration-200"
+                  className="text-[0.95rem] text-text-muted hover:text-text transition-colors duration-200"
                 >
                   {link.label}
                 </Link>
@@ -65,7 +66,7 @@ export function Nav() {
           <div className="flex items-center gap-3">
             <Link
               href="/contact"
-              className="hidden md:inline-flex items-center gap-1 px-4 py-2 rounded-full bg-accent text-bg text-sm font-medium hover:bg-accent/90 transition-colors duration-200"
+              className="hidden md:inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-accent text-white text-[0.95rem] font-medium hover:bg-accent-hover transition-colors duration-200 shadow-[0_1px_2px_rgba(15,17,21,0.06),0_6px_16px_-6px_rgba(79,70,229,0.35)]"
             >
               Book a call →
             </Link>
@@ -74,7 +75,7 @@ export function Nav() {
               className="md:hidden text-text-muted hover:text-text transition-colors p-1"
               onClick={() => setOpen((v) => !v)}
             >
-              {open ? <X size={20} /> : <Menu size={20} />}
+              {open ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </nav>
@@ -90,10 +91,10 @@ export function Nav() {
             transition={{ duration: 0.18 }}
             className="fixed inset-0 z-50 bg-bg flex flex-col"
           >
-            <div className="flex items-center justify-between px-6 h-[60px] border-b border-border">
+            <div className="flex items-center justify-between px-6 h-16 border-b border-border">
               <Link
                 href="/"
-                className="font-body text-sm font-medium text-text"
+                className="font-body text-base font-medium text-text"
                 onClick={() => setOpen(false)}
               >
                 Sidekick<span className="text-accent">◆</span>Solutions
@@ -103,7 +104,7 @@ export function Nav() {
                 className="text-text-muted hover:text-text transition-colors p-1"
                 onClick={() => setOpen(false)}
               >
-                <X size={20} />
+                <X size={22} />
               </button>
             </div>
 
@@ -118,7 +119,7 @@ export function Nav() {
                   >
                     <Link
                       href={link.href}
-                      className="font-display text-[2.5rem] italic text-text hover:text-accent transition-colors duration-200"
+                      className="font-display text-4xl font-medium text-text hover:text-accent transition-colors duration-200"
                       onClick={() => setOpen(false)}
                     >
                       {link.label}
@@ -135,7 +136,7 @@ export function Nav() {
               >
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-1.5 px-6 py-3 rounded-full bg-accent text-bg text-sm font-medium"
+                  className="inline-flex items-center gap-1.5 px-6 py-3 rounded-full bg-accent text-white text-base font-medium"
                   onClick={() => setOpen(false)}
                 >
                   Book a call →

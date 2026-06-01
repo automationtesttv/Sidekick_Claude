@@ -2,8 +2,8 @@ export function NoiseOverlay() {
   return (
     <div
       aria-hidden="true"
-      className="fixed inset-0 z-50 pointer-events-none select-none"
-      style={{ opacity: 0.035 }}
+      className="fixed inset-0 z-50 pointer-events-none select-none mix-blend-multiply"
+      style={{ opacity: 0.04 }}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -14,8 +14,8 @@ export function NoiseOverlay() {
         <filter id="grain">
           <feTurbulence
             type="fractalNoise"
-            baseFrequency="0.68"
-            numOctaves="4"
+            baseFrequency="0.78"
+            numOctaves="3"
             stitchTiles="stitch"
           />
           <feColorMatrix type="saturate" values="0" />

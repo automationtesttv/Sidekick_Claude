@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 interface ButtonProps {
-  variant?: "primary" | "ghost";
+  variant?: "primary" | "ghost" | "secondary";
   href?: string;
   onClick?: () => void;
   children: React.ReactNode;
@@ -20,13 +20,15 @@ export function Button({
   disabled = false,
 }: ButtonProps) {
   const base =
-    "inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-body font-medium transition-colors duration-200 cursor-pointer";
+    "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-body font-medium transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed";
 
   const variants = {
     primary:
-      "bg-accent text-bg hover:bg-accent/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2",
+      "bg-accent text-white hover:bg-accent-hover shadow-[0_1px_2px_rgba(15,17,21,0.06),0_8px_20px_-6px_rgba(79,70,229,0.35)] hover:shadow-[0_1px_2px_rgba(15,17,21,0.06),0_12px_28px_-6px_rgba(79,70,229,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2",
+    secondary:
+      "bg-text text-bg hover:bg-text/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-text focus-visible:outline-offset-2",
     ghost:
-      "border border-border text-text-muted hover:text-text hover:border-text-subtle focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2",
+      "border border-border-strong text-text hover:border-text hover:bg-bg-elevated focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2",
   };
 
   const classes = `${base} ${variants[variant]} ${className}`;
