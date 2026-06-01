@@ -3,6 +3,12 @@
 import { motion } from "motion/react";
 import { Sparkles, MessageSquare, Workflow, BookOpen } from "lucide-react";
 import { SectionEyebrow } from "./SectionEyebrow";
+import {
+  SalesMockup,
+  SupportMockup,
+  OpsMockup,
+  KnowledgeMockup,
+} from "./ServiceMockups";
 
 const services = [
   {
@@ -16,6 +22,7 @@ const services = [
       "Outreach draft generation",
       "Calendar booking automation",
     ],
+    mockup: SalesMockup,
   },
   {
     number: "02",
@@ -28,6 +35,7 @@ const services = [
       "Intelligent escalation routing",
       "Knowledge base learning",
     ],
+    mockup: SupportMockup,
   },
   {
     number: "03",
@@ -40,6 +48,7 @@ const services = [
       "Scheduled reporting",
       "Approval chain management",
     ],
+    mockup: OpsMockup,
   },
   {
     number: "04",
@@ -52,6 +61,7 @@ const services = [
       "Decision & policy retrieval",
       "Onboarding acceleration",
     ],
+    mockup: KnowledgeMockup,
   },
 ];
 
@@ -78,51 +88,57 @@ export function Services() {
             transition={{ duration: 0.6, ease: "easeOut" as const, delay: 0.1 }}
             className="mt-5 text-text-muted text-[1.05rem] leading-[1.65]"
           >
-            Pick the agent that matches your highest-leverage workflow. We
-            tailor it to your stack and your team.
+            Pick the agent that matches your highest-leverage workflow. Each
+            one ships with a live, working interface — these are real previews.
           </motion.p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-5">
           {services.map((service, i) => {
             const Icon = service.icon;
+            const Mockup = service.mockup;
             return (
               <motion.div
                 key={service.number}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.6, ease: "easeOut" as const, delay: i * 0.06 }}
-                className="group relative bg-bg-elevated border border-border rounded-2xl p-8 md:p-9 card-shadow hover:card-shadow-hover hover:border-accent/40 hover:-translate-y-0.5 transition-all duration-300"
+                className="group relative bg-bg-elevated border border-border rounded-2xl overflow-hidden card-shadow hover:card-shadow-hover hover:border-accent/40 hover:-translate-y-0.5 transition-all duration-300"
               >
-                <div className="flex items-start justify-between mb-6">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-soft text-accent group-hover:bg-accent group-hover:text-white transition-colors duration-300">
-                    <Icon size={20} strokeWidth={1.75} />
+                {/* Mini animated mockup */}
+                <Mockup />
+
+                <div className="p-8 md:p-9">
+                  <div className="flex items-start justify-between mb-5">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-soft text-accent group-hover:bg-accent group-hover:text-white transition-colors duration-300">
+                      <Icon size={20} strokeWidth={1.75} />
+                    </div>
+                    <span className="font-mono text-xs tracking-[0.18em] text-text-subtle uppercase">
+                      / {service.number}
+                    </span>
                   </div>
-                  <span className="font-mono text-xs tracking-[0.18em] text-text-subtle uppercase">
-                    / {service.number}
-                  </span>
+
+                  <h3 className="font-display font-medium text-[1.5rem] text-text mb-3 tracking-tight">
+                    {service.title}
+                  </h3>
+
+                  <p className="text-text-muted text-base leading-[1.65] mb-7">
+                    {service.description}
+                  </p>
+
+                  <ul className="space-y-2.5 pt-6 border-t border-border">
+                    {service.capabilities.map((cap) => (
+                      <li
+                        key={cap}
+                        className="font-mono text-xs text-text-subtle flex items-center gap-2.5 uppercase tracking-wider"
+                      >
+                        <span className="text-accent">+</span>
+                        {cap}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-
-                <h3 className="font-display font-medium text-[1.5rem] text-text mb-3 tracking-tight">
-                  {service.title}
-                </h3>
-
-                <p className="text-text-muted text-base leading-[1.65] mb-7">
-                  {service.description}
-                </p>
-
-                <ul className="space-y-2.5 pt-6 border-t border-border">
-                  {service.capabilities.map((cap) => (
-                    <li
-                      key={cap}
-                      className="font-mono text-xs text-text-subtle flex items-center gap-2.5 uppercase tracking-wider"
-                    >
-                      <span className="text-accent">+</span>
-                      {cap}
-                    </li>
-                  ))}
-                </ul>
               </motion.div>
             );
           })}
