@@ -2,13 +2,23 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Check } from "lucide-react";
+import { Check, Mic, Play, Pause } from "lucide-react";
 
-type Msg = {
+type TextMsg = {
   from: "customer" | "bot";
+  kind: "text";
   text: string;
   time: string;
 };
+
+type VoiceMsg = {
+  from: "customer" | "bot";
+  kind: "voice";
+  duration: string;
+  time: string;
+};
+
+type Msg = TextMsg | VoiceMsg;
 
 type Scenario = {
   title: string;
@@ -25,25 +35,46 @@ const scenarios: Scenario[] = [
     contact: "Carmen Reyes",
     status: "online",
     messages: [
-      {
-        from: "customer",
-        text: "Hi! Are you open Sunday?",
-        time: "10:42",
-      },
+      { from: "customer", kind: "text", text: "Hi! Are you open Sunday?", time: "10:42" },
       {
         from: "bot",
+        kind: "text",
         text: "We're closed Sundays — open Mon–Sat 9 to 7 ✨ Anything I can help with?",
         time: "10:42",
       },
       {
         from: "customer",
+        kind: "text",
         text: "Can I book a table Saturday 7pm for 4?",
         time: "10:43",
       },
       {
         from: "bot",
+        kind: "text",
         text: "Done ✓ Table for 4, Saturday 7pm. Confirmation sent 🍷",
         time: "10:43",
+      },
+    ],
+  },
+  {
+    title: "Voice notes",
+    tag: "Talk naturally",
+    contact: "Diana Mendez",
+    status: "voice message",
+    messages: [
+      { from: "customer", kind: "voice", duration: "0:11", time: "15:32" },
+      {
+        from: "bot",
+        kind: "text",
+        text: "Got it — moving your Friday haircut to Thursday at 3pm 📅",
+        time: "15:32",
+      },
+      { from: "customer", kind: "voice", duration: "0:04", time: "15:33" },
+      {
+        from: "bot",
+        kind: "text",
+        text: "Confirmed for Thursday 3pm with Maria. See you then 💇✨",
+        time: "15:33",
       },
     ],
   },
@@ -55,21 +86,25 @@ const scenarios: Scenario[] = [
     messages: [
       {
         from: "bot",
+        kind: "text",
         text: "Welcome to Acme, Sarah 👋 I'll get you set up in 3 quick steps.",
         time: "9:15",
       },
       {
         from: "bot",
+        kind: "text",
         text: "1️⃣ ID upload\n2️⃣ Preferences\n3️⃣ First payment method",
         time: "9:15",
       },
       {
         from: "customer",
+        kind: "text",
         text: "Sounds good — where do I upload?",
         time: "9:16",
       },
       {
         from: "bot",
+        kind: "text",
         text: "Tap here 👉 acme.co/up/9k2 — takes 30 seconds",
         time: "9:16",
       },
@@ -81,31 +116,26 @@ const scenarios: Scenario[] = [
     contact: "Owner · Acme",
     status: "internal",
     messages: [
+      { from: "bot", kind: "text", text: "📊 Friday recap is ready", time: "16:00" },
       {
         from: "bot",
-        text: "📊 Friday recap is ready",
-        time: "16:00",
-      },
-      {
-        from: "bot",
+        kind: "text",
         text: "Revenue: $47,210 (+12% wk)\nNew customers: 38\nAvg ticket: $124",
         time: "16:00",
       },
       {
         from: "bot",
+        kind: "text",
         text: "⚠️ Refund rate up 3% this week — flagged the spike for you.",
         time: "16:00",
       },
       {
         from: "customer",
+        kind: "text",
         text: "Send the breakdown to ops?",
         time: "16:02",
       },
-      {
-        from: "bot",
-        text: "Sent to #ops + Hannah ✓",
-        time: "16:02",
-      },
+      { from: "bot", kind: "text", text: "Sent to #ops + Hannah ✓", time: "16:02" },
     ],
   },
   {
@@ -114,23 +144,17 @@ const scenarios: Scenario[] = [
     contact: "Mike Tran",
     status: "online",
     messages: [
-      {
-        from: "customer",
-        text: "Wifi keeps cutting out 😩",
-        time: "8:08",
-      },
+      { from: "customer", kind: "text", text: "Wifi keeps cutting out 😩", time: "8:08" },
       {
         from: "bot",
+        kind: "text",
         text: "Got it — quick check: just one device or all of them?",
         time: "8:08",
       },
-      {
-        from: "customer",
-        text: "All of them",
-        time: "8:09",
-      },
+      { from: "customer", kind: "text", text: "All of them", time: "8:09" },
       {
         from: "bot",
+        kind: "text",
         text: "Restarting your router remotely now… done ⚙️ Back online in ~30s. Ping me if not!",
         time: "8:09",
       },
@@ -138,7 +162,8 @@ const scenarios: Scenario[] = [
   },
 ];
 
-const MESSAGE_DELAY_MS = 1100;
+const TEXT_MESSAGE_DELAY_MS = 1100;
+const VOICE_MESSAGE_DELAY_MS = 1900;
 const SCENARIO_HOLD_MS = 2200;
 
 export function WhatsAppMockup() {
@@ -149,7 +174,11 @@ export function WhatsAppMockup() {
 
   useEffect(() => {
     if (step < scenario.messages.length) {
-      const t = setTimeout(() => setStep((s) => s + 1), MESSAGE_DELAY_MS);
+      const justShown = scenario.messages[step - 1];
+      // Voice notes need extra time to "play" before the next message arrives
+      const delay =
+        justShown?.kind === "voice" ? VOICE_MESSAGE_DELAY_MS : TEXT_MESSAGE_DELAY_MS;
+      const t = setTimeout(() => setStep((s) => s + 1), delay);
       return () => clearTimeout(t);
     }
     const t = setTimeout(() => {
@@ -157,7 +186,7 @@ export function WhatsAppMockup() {
       setStep(0);
     }, SCENARIO_HOLD_MS);
     return () => clearTimeout(t);
-  }, [step, scenario.messages.length]);
+  }, [step, scenario.messages]);
 
   return (
     <div className="relative w-full max-w-[320px] mx-auto">
@@ -243,11 +272,7 @@ export function WhatsAppMockup() {
           >
             <AnimatePresence mode="popLayout">
               {scenario.messages.slice(0, step).map((msg, i) => (
-                <MessageBubble
-                  key={`${scenarioIdx}-${i}`}
-                  msg={msg}
-                  isLast={i === step - 1}
-                />
+                <MessageBubble key={`${scenarioIdx}-${i}`} msg={msg} />
               ))}
             </AnimatePresence>
           </div>
@@ -259,14 +284,14 @@ export function WhatsAppMockup() {
               Message
             </div>
             <div className="text-text-subtle text-base leading-none">📎</div>
-            <div className="h-7 w-7 rounded-full bg-[#075E54] flex items-center justify-center text-white text-xs">
-              🎤
+            <div className="h-7 w-7 rounded-full bg-[#075E54] flex items-center justify-center text-white">
+              <Mic size={12} strokeWidth={2.2} />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Scenario indicator dots below phone */}
+      {/* Scenario indicator dots */}
       <div className="flex justify-center gap-1.5 mt-5">
         {scenarios.map((s, i) => (
           <button
@@ -288,7 +313,14 @@ export function WhatsAppMockup() {
   );
 }
 
-function MessageBubble({ msg, isLast }: { msg: Msg; isLast: boolean }) {
+function MessageBubble({ msg }: { msg: Msg }) {
+  if (msg.kind === "voice") {
+    return <VoiceBubble msg={msg} />;
+  }
+  return <TextBubble msg={msg} />;
+}
+
+function TextBubble({ msg }: { msg: TextMsg }) {
   const isBot = msg.from === "bot";
   return (
     <motion.div
@@ -317,6 +349,107 @@ function MessageBubble({ msg, isLast }: { msg: Msg; isLast: boolean }) {
               <Check size={9} strokeWidth={3} />
             </span>
           )}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+const WAVEFORM_BARS = [
+  4, 7, 11, 6, 9, 13, 5, 8, 12, 16, 10, 5, 7, 14, 11, 6, 9, 13, 4, 8, 15, 7, 5, 11, 8, 12, 6,
+];
+
+function VoiceBubble({ msg }: { msg: VoiceMsg }) {
+  const isBot = msg.from === "bot";
+  const [progress, setProgress] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  // Auto-play the waveform when this bubble appears
+  useEffect(() => {
+    setIsPlaying(true);
+    setProgress(0);
+    const totalMs = 1600; // demo speed — feels real but keeps the scenario moving
+    const start = Date.now();
+    let raf = 0;
+    const tick = () => {
+      const elapsed = Date.now() - start;
+      const p = Math.min(elapsed / totalMs, 1);
+      setProgress(p);
+      if (p < 1) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        setIsPlaying(false);
+      }
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  const activeIdx = progress * WAVEFORM_BARS.length;
+
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 6, scale: 0.96 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.96 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
+      className={`flex ${isBot ? "justify-end" : "justify-start"}`}
+    >
+      <div
+        className={`relative px-2 py-1.5 rounded-lg shadow-sm flex items-center gap-2 ${
+          isBot
+            ? "bg-[#DCF8C6] rounded-tr-sm"
+            : "bg-white rounded-tl-sm"
+        }`}
+      >
+        {/* Play / pause button */}
+        <button
+          aria-label={isPlaying ? "Pause voice note" : "Play voice note"}
+          className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#075E54] text-white"
+        >
+          {isPlaying ? (
+            <Pause size={9} strokeWidth={0} fill="currentColor" />
+          ) : (
+            <Play size={9} strokeWidth={0} fill="currentColor" className="ml-0.5" />
+          )}
+        </button>
+
+        {/* Waveform */}
+        <div className="flex items-center gap-[2px] py-1">
+          {WAVEFORM_BARS.map((h, i) => {
+            const isActive = i < activeIdx;
+            return (
+              <span
+                key={i}
+                className={`w-[1.5px] rounded-full transition-colors duration-100 ${
+                  isActive
+                    ? "bg-[#075E54]"
+                    : "bg-text-subtle/30"
+                }`}
+                style={{ height: `${h}px` }}
+              />
+            );
+          })}
+        </div>
+
+        {/* Mic + duration + status, stacked */}
+        <div className="flex flex-col items-end gap-0.5 pl-0.5">
+          <div className="flex items-center gap-1">
+            <Mic size={8} strokeWidth={2.2} className="text-[#075E54]" />
+            <span className="text-[8.5px] font-mono text-text-muted leading-none">
+              {msg.duration}
+            </span>
+          </div>
+          <div className="flex items-center gap-0.5">
+            <span className="text-[8.5px] text-text-subtle">{msg.time}</span>
+            {isBot && (
+              <span className="flex text-[#34B7F1] -mr-0.5">
+                <Check size={8} strokeWidth={3} className="-mr-2" />
+                <Check size={8} strokeWidth={3} />
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </motion.div>
