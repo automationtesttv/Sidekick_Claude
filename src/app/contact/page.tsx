@@ -40,7 +40,7 @@ export default function Contact() {
   return (
     <>
       <Nav />
-      <main className="min-h-screen pt-32 pb-32 px-6">
+      <main className="min-h-[100dvh] pt-32 pb-32 px-6">
         <div className="max-w-[640px] mx-auto">
           <div className="text-center mb-12">
             <SectionEyebrow label="get in touch" />

@@ -27,9 +27,9 @@ export function Hero() {
   return (
     <section className="relative pt-32 pb-24 px-6 overflow-hidden">
       {/* Soft accent bloom */}
-      <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
+      <div aria-hidden="true" className="absolute inset-0 pointer-events-none overflow-hidden">
         <div
-          className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[900px] h-[700px] rounded-full blur-3xl"
+          className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[min(900px,140vw)] h-[700px] rounded-full blur-3xl"
           style={{
             background:
               "radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 60%)",

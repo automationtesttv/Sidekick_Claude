@@ -2,8 +2,11 @@ export function NoiseOverlay() {
   return (
     <div
       aria-hidden="true"
-      className="fixed inset-0 z-50 pointer-events-none select-none mix-blend-multiply"
-      style={{ opacity: 0.04 }}
+      // mix-blend-multiply is intentionally avoided — known Android Chrome bug
+      // where some GPUs render it as a fully opaque black layer, breaking the
+      // whole page. Hidden below md so mobile users don't pay the cost either.
+      className="hidden md:block fixed inset-0 z-50 pointer-events-none select-none"
+      style={{ opacity: 0.035 }}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

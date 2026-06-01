@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Instrument_Serif, Geist, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { NoiseOverlay } from "@/components/NoiseOverlay";
@@ -36,6 +36,13 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#FBFAF6",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -46,7 +53,7 @@ export default function RootLayout({
       lang="en"
       className={`${instrumentSerif.variable} ${geist.variable} ${jetbrainsMono.variable}`}
     >
-      <body className="min-h-screen bg-bg text-text antialiased">
+      <body className="min-h-[100dvh] bg-bg text-text antialiased overflow-x-hidden">
         <GridBackground />
         <NoiseOverlay />
         <div className="relative z-10">{children}</div>
