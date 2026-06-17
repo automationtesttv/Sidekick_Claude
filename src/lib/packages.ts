@@ -24,7 +24,17 @@ export interface PackageCategory {
   titleEmphasis: string;
   tagline: string;
   intro: string;
+  /** overrides the "From {price}" label on overview cards */
+  fromLabel?: string;
+  /** optional heading above the primary tier grid */
+  tiersHeading?: string;
   tiers: Tier[];
+  /** optional second tier grid (e.g. monthly support plans) */
+  secondary?: {
+    heading: string;
+    intro?: string;
+    tiers: Tier[];
+  };
   /** optional add-on / extras block */
   extras?: {
     heading: string;
@@ -129,12 +139,14 @@ export const packages: PackageCategory[] = [
     titleEmphasis: "CRM",
     tagline: "Run the whole business on one platform — and make it e-invoice ready.",
     intro:
-      "A fully set-up ERPNext platform with CRM, inventory, and MyInvois e-invoicing, migrated and configured for your business. One-off builds, no per-seat licensing games.",
+      "A fully set-up ERPNext platform with CRM and MyInvois e-invoicing, migrated and configured for your business. Scope varies by team, so setup and support are quoted to fit — no per-seat licensing games.",
+    fromLabel: "Custom quote",
+    tiersHeading: "Setup — one-time",
     tiers: [
       {
         name: "Starter",
-        price: "RM 18,000",
-        priceNote: "one-off",
+        price: "Custom quote",
+        priceNote: "tailored to your scope",
         summary: "The core platform, configured and ready to run.",
         features: [
           "ERPNext platform setup",
@@ -143,38 +155,99 @@ export const packages: PackageCategory[] = [
           "Data migration from your current tools",
           "Team training session",
         ],
-        cta: "Get started",
+        cta: "Get a quote",
       },
       {
         name: "Standard",
-        price: "RM 25,000",
-        priceNote: "one-off",
+        price: "Custom quote",
+        priceNote: "6-week delivery",
         summary: "The platform plus automation that actually saves hours.",
         features: [
           "Everything in Starter",
-          "WhatsApp integration",
+          "WhatsApp messaging built in",
           "One custom AI workflow",
           "Hosting & deployment included",
           "Extended onboarding + training",
         ],
-        cta: "Choose Standard",
+        cta: "Get a quote",
         popular: true,
       },
       {
         name: "Founding Partner",
-        price: "RM 18,000",
-        priceNote: "one-off · limited to 3 clients",
-        summary: "Standard scope at the Starter price — for early partners.",
+        price: "Custom quote",
+        priceNote: "limited · first 3 clients",
+        summary:
+          "Standard scope at a discount, with your monthly rate locked for 24 months.",
         features: [
           "Full Standard scope",
-          "WhatsApp integration",
-          "One custom AI workflow",
-          "Hosting & deployment included",
-          "Direct line to the build team",
+          "Discounted setup",
+          "Rate locked for 24 months",
+          "In exchange for a case study",
+          "Plus two referrals",
         ],
         cta: "Apply now",
       },
     ],
+    secondary: {
+      heading: "Hosting & support — monthly",
+      intro:
+        "Ongoing plans sized to your team. Every plan keeps your platform hosted, patched, and MyInvois-current.",
+      tiers: [
+        {
+          name: "Essential",
+          price: "Custom quote",
+          priceNote: "under 10 staff",
+          summary: "Keep the lights on for a lean team.",
+          features: [
+            "Managed hosting",
+            "MyInvois compliance updates",
+            "1 hour of support / month",
+            "Email support",
+          ],
+          cta: "Get a quote",
+        },
+        {
+          name: "Growth",
+          price: "Custom quote",
+          priceNote: "10–25 staff",
+          summary: "More hands-on support as you scale.",
+          features: [
+            "Everything in Essential",
+            "4 hours of support / month",
+            "WhatsApp messaging",
+            "One AI workflow",
+            "Monthly check-in",
+          ],
+          cta: "Get a quote",
+          popular: true,
+        },
+        {
+          name: "Pro",
+          price: "Custom quote",
+          priceNote: "25–50 staff",
+          summary: "Priority care for a busy operation.",
+          features: [
+            "Everything in Growth",
+            "10 hours of support / month",
+            "Three AI workflows",
+            "Priority response",
+            "Quarterly review",
+          ],
+          cta: "Get a quote",
+        },
+      ],
+    },
+    extras: {
+      heading: "Phase 2 add-ons",
+      note: "Bolt on when you're ready — quoted per scope.",
+      items: [
+        { label: "HRMS + Payroll", price: "On request" },
+        { label: "Helpdesk + customer portal", price: "On request" },
+        { label: "Payment gateway integration", price: "On request" },
+        { label: "Additional AI workflow", price: "On request" },
+        { label: "Custom report / dashboard", price: "On request" },
+      ],
+    },
     footnote:
       "ERPNext is open-source — you keep full ownership of your platform and data, with no per-user license fees.",
   },

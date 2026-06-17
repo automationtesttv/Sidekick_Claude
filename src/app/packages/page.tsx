@@ -38,7 +38,7 @@ export default function PackagesPage() {
           <div className="grid md:grid-cols-3 gap-5 mb-20">
             {packages.map((cat) => {
               const Icon = cat.icon;
-              const from = cat.tiers[0].price;
+              const from = cat.fromLabel ?? `From ${cat.tiers[0].price}`;
               return (
                 <Link
                   key={cat.slug}
@@ -59,7 +59,7 @@ export default function PackagesPage() {
                   </p>
                   <div className="flex items-center justify-between pt-5 border-t border-border">
                     <span className="font-mono text-[11px] text-text-subtle uppercase tracking-wider">
-                      From {from}
+                      {from}
                     </span>
                     <span className="flex items-center gap-1.5 text-accent font-medium text-sm">
                       View plans

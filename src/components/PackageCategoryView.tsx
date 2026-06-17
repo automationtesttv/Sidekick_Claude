@@ -39,8 +39,28 @@ export function PackageCategoryView({ category }: { category: PackageCategory })
           </p>
         </div>
 
-        {/* Tiers */}
+        {/* Primary tiers */}
+        {category.tiersHeading && (
+          <h2 className="font-mono text-[11px] tracking-[0.2em] text-text-subtle uppercase mb-5">
+            {category.tiersHeading}
+          </h2>
+        )}
         <PackageTiers tiers={category.tiers} />
+
+        {/* Secondary tiers (e.g. monthly support) */}
+        {category.secondary && (
+          <div className="mt-16">
+            <h2 className="font-mono text-[11px] tracking-[0.2em] text-text-subtle uppercase mb-2">
+              {category.secondary.heading}
+            </h2>
+            {category.secondary.intro && (
+              <p className="text-text-muted text-[0.95rem] leading-[1.6] max-w-[640px] mb-6">
+                {category.secondary.intro}
+              </p>
+            )}
+            <PackageTiers tiers={category.secondary.tiers} />
+          </div>
+        )}
 
         {/* Footnote */}
         {category.footnote && (
