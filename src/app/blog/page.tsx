@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { SectionEyebrow } from "@/components/SectionEyebrow";
-import { posts, formatDate } from "@/lib/blog";
+import { getAllPosts, formatDate } from "@/lib/blog";
 
 export const metadata: Metadata = {
   title: "Blog — Sidekick Solutions",
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
-  const [featured, ...rest] = posts;
+  const [featured, ...rest] = getAllPosts();
 
   return (
     <>

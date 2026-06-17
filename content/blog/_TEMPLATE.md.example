@@ -1,0 +1,21 @@
+---
+title: "Your post title here"
+excerpt: "One or two sentences that show up on the blog index card."
+date: "2026-06-18"
+readTime: "4 min read"
+category: "Strategy"
+---
+
+Write your post in Markdown below the frontmatter above.
+
+This first paragraph becomes the opening of the article.
+
+## Use a level-2 heading for sections
+
+Regular paragraphs render as body text. You can use **bold**, *italics*,
+and [links](https://sidekicksolutions.io).
+
+- Bullet points work too
+- One item per line
+
+That's it — save the file and rebuild the site.

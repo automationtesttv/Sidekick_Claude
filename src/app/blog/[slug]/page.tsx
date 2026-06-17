@@ -5,10 +5,10 @@ import { ArrowLeft } from "lucide-react";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/Button";
-import { posts, getPost, formatDate } from "@/lib/blog";
+import { getAllPosts, getPost, formatDate } from "@/lib/blog";
 
 export function generateStaticParams() {
-  return posts.map((p) => ({ slug: p.slug }));
+  return getAllPosts().map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({
@@ -62,25 +62,10 @@ export default async function BlogPostPage({
           </h1>
 
           {/* Body */}
-          <div className="space-y-5">
-            {post.body.map((block, i) =>
-              block.startsWith("## ") ? (
-                <h2
-                  key={i}
-                  className="font-display font-medium text-[1.5rem] text-text tracking-tight pt-4 leading-snug"
-                >
-                  {block.replace("## ", "")}
-                </h2>
-              ) : (
-                <p
-                  key={i}
-                  className="text-text-muted text-[1.08rem] leading-[1.8]"
-                >
-                  {block}
-                </p>
-              )
-            )}
-          </div>
+          <div
+            className="blog-prose"
+            dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+          />
 
           {/* CTA */}
           <div className="mt-16 pt-10 border-t border-border bg-surface -mx-6 px-6 sm:mx-0 sm:px-10 sm:rounded-2xl sm:border sm:py-10 text-center">
