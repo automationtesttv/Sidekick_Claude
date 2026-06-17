@@ -3,6 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { SectionEyebrow } from "./SectionEyebrow";
 import { Button } from "./Button";
 import { PackageTiers } from "./PackageTiers";
+import { AddOnSelector } from "./AddOnSelector";
 import type { PackageCategory } from "@/lib/packages";
 
 export function PackageCategoryView({ category }: { category: PackageCategory }) {
@@ -80,21 +81,7 @@ export function PackageCategoryView({ category }: { category: PackageCategory })
                 <p className="text-sm text-text-muted">{category.extras.note}</p>
               )}
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-xl overflow-hidden">
-              {category.extras.items.map((item) => (
-                <div
-                  key={item.label}
-                  className="bg-bg-elevated p-5 flex flex-col gap-2"
-                >
-                  <span className="font-display text-lg font-medium text-text tabular-nums">
-                    {item.price}
-                  </span>
-                  <span className="text-[0.85rem] text-text-muted leading-snug">
-                    {item.label}
-                  </span>
-                </div>
-              ))}
-            </div>
+            <AddOnSelector items={category.extras.items} />
           </div>
         )}
 

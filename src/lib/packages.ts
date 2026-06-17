@@ -39,7 +39,7 @@ export interface PackageCategory {
   extras?: {
     heading: string;
     note?: string;
-    items: { label: string; price: string }[];
+    items: { label: string; price: string; description?: string }[];
   };
   /** small print under the tiers */
   footnote?: string;
@@ -116,16 +116,56 @@ export const packages: PackageCategory[] = [
     ],
     extras: {
       heading: "Add-ons",
-      note: "One-time build fees — mix and match onto any plan.",
+      note: "One-time build fees on top of your plan. Business includes 1 free, Premium includes 2.",
       items: [
-        { label: "Social / WhatsApp channel", price: "RM 2,500" },
-        { label: "Lead capture", price: "RM 2,500" },
-        { label: "CRM sync", price: "RM 3,000" },
-        { label: "Email notifications", price: "RM 1,000" },
-        { label: "Sentiment analysis", price: "RM 2,000" },
-        { label: "Order tracking", price: "RM 1,500" },
-        { label: "Product recommendations", price: "RM 2,500" },
-        { label: "Multi-language support", price: "RM 1,200" },
+        {
+          label: "Social / WhatsApp channel",
+          price: "RM 2,500",
+          description:
+            "Put your agent on WhatsApp, Instagram DM, Messenger, or Telegram so customers reach you where they already are.",
+        },
+        {
+          label: "Lead capture",
+          price: "RM 2,500",
+          description:
+            "Collect visitor details, qualify them with smart questions, and route the hot ones to your sales team.",
+        },
+        {
+          label: "CRM sync",
+          price: "RM 3,000",
+          description:
+            "Push conversations, contacts, and lead data straight into your CRM — no manual copying.",
+        },
+        {
+          label: "Email notifications",
+          price: "RM 1,000",
+          description:
+            "Trigger automated alerts, follow-ups, and summaries based on what the agent does.",
+        },
+        {
+          label: "Sentiment analysis",
+          price: "RM 2,000",
+          description:
+            "Spot frustrated customers in real time and hand them to a human before things escalate.",
+        },
+        {
+          label: "Order tracking",
+          price: "RM 1,500",
+          description:
+            "Let customers check order status, delivery updates, and ticket progress through the agent.",
+        },
+        {
+          label: "Product recommendations",
+          price: "RM 2,500",
+          description:
+            "Suggest the right products or services based on what each customer is actually asking for.",
+        },
+        {
+          label: "Multi-language support",
+          price: "RM 1,200",
+          description:
+            "Auto-detect and reply across languages — Malay, English, Chinese, Tamil, and more.",
+        },
       ],
     },
     footnote:
