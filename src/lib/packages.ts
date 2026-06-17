@@ -43,6 +43,19 @@ export interface PackageCategory {
   };
   /** small print under the tiers */
   footnote?: string;
+  /** "what's included in every plan" strip */
+  included?: {
+    heading: string;
+    items: string[];
+  };
+  /** "how it works" 3-step row */
+  steps?: {
+    heading: string;
+    intro?: string;
+    items: { title: string; description: string }[];
+  };
+  /** category-specific FAQ */
+  faqs?: { question: string; answer: string }[];
 }
 
 export const packages: PackageCategory[] = [
@@ -170,6 +183,65 @@ export const packages: PackageCategory[] = [
     },
     footnote:
       "Monthly fees cover hosting and support; usage-based API costs are billed at cost. Conversations beyond your plan are RM 0.20 each.",
+    included: {
+      heading: "In every plan",
+      items: [
+        "Trained on your own content & FAQs",
+        "Hosting and maintenance handled",
+        "Conversation logs you can review",
+        "Quality checks before go-live",
+        "You own the agent and its data",
+        "No per-seat licensing",
+      ],
+    },
+    steps: {
+      heading: "How it works",
+      intro: "From first call to a live agent in about two weeks.",
+      items: [
+        {
+          title: "Scope",
+          description:
+            "A short call to map the questions and tasks your agent should handle, and which channels it lives on.",
+        },
+        {
+          title: "Build & train",
+          description:
+            "We feed it your content, wire up any add-ons, and test it against real conversations until it holds up.",
+        },
+        {
+          title: "Launch",
+          description:
+            "We deploy it to your site or WhatsApp, hand over the keys, and keep it hosted and maintained.",
+        },
+      ],
+    },
+    faqs: [
+      {
+        question: "How long until my agent is live?",
+        answer:
+          "A Pilot is usually live within a week. Larger builds with add-ons and multiple channels typically take around two weeks.",
+      },
+      {
+        question: "What does a \"conversation\" count as?",
+        answer:
+          "One conversation is a single back-and-forth session with a customer, regardless of how many messages it contains. If you go over your plan's monthly cap, extra conversations are billed at RM 0.20 each.",
+      },
+      {
+        question: "Which channels can the agent run on?",
+        answer:
+          "Web chat is included in every plan. WhatsApp, Instagram DM, Facebook Messenger, and Telegram are available through the social channel add-on.",
+      },
+      {
+        question: "Do I own the agent?",
+        answer:
+          "Yes. The agent, its configuration, and your data belong to you. There's no per-seat licensing, and you're free to take it elsewhere.",
+      },
+      {
+        question: "What happens if it can't answer something?",
+        answer:
+          "The agent hands off cleanly. With the sentiment or escalation add-on it can detect frustration and route the conversation to a human automatically.",
+      },
+    ],
   },
   {
     slug: "erp",

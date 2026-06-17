@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Check } from "lucide-react";
 import { SectionEyebrow } from "./SectionEyebrow";
 import { Button } from "./Button";
 import { PackageTiers } from "./PackageTiers";
@@ -82,6 +82,91 @@ export function PackageCategoryView({ category }: { category: PackageCategory })
               )}
             </div>
             <AddOnSelector items={category.extras.items} />
+          </div>
+        )}
+
+        {/* What's included in every plan */}
+        {category.included && (
+          <div className="mt-16">
+            <h2 className="font-mono text-[11px] tracking-[0.2em] text-text-subtle uppercase mb-6">
+              {category.included.heading}
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-4">
+              {category.included.items.map((item) => (
+                <div key={item} className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent">
+                    <Check size={12} strokeWidth={3} />
+                  </span>
+                  <span className="text-text text-[0.95rem] leading-[1.5]">
+                    {item}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* How it works */}
+        {category.steps && (
+          <div className="mt-16">
+            <h2 className="font-display font-medium text-2xl text-text mb-1.5">
+              {category.steps.heading}
+            </h2>
+            {category.steps.intro && (
+              <p className="text-text-muted text-[0.95rem] mb-8">
+                {category.steps.intro}
+              </p>
+            )}
+            <div className="grid md:grid-cols-3 gap-5">
+              {category.steps.items.map((step, i) => (
+                <div
+                  key={step.title}
+                  className="bg-bg-elevated border border-border rounded-2xl p-7 card-shadow"
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent text-white font-display text-base font-medium mb-5">
+                    {i + 1}
+                  </div>
+                  <h3 className="font-display font-medium text-lg text-text mb-2">
+                    {step.title}
+                  </h3>
+                  <p className="text-text-muted text-[0.92rem] leading-[1.6]">
+                    {step.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* FAQ */}
+        {category.faqs && category.faqs.length > 0 && (
+          <div className="mt-16">
+            <h2 className="font-display font-medium text-2xl text-text mb-7">
+              Questions
+            </h2>
+            <div className="max-w-[760px] space-y-3">
+              {category.faqs.map((faq) => (
+                <details
+                  key={faq.question}
+                  className="group bg-bg-elevated border border-border rounded-2xl card-shadow open:border-accent/40 transition-colors duration-200"
+                >
+                  <summary className="flex items-center justify-between gap-6 cursor-pointer list-none select-none px-6 py-5">
+                    <span className="font-display text-[1.05rem] font-medium text-text">
+                      {faq.question}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent font-mono text-lg group-open:rotate-45 transition-transform duration-200 leading-none"
+                    >
+                      +
+                    </span>
+                  </summary>
+                  <p className="px-6 pb-6 text-text-muted text-[0.95rem] leading-[1.7] max-w-[640px]">
+                    {faq.answer}
+                  </p>
+                </details>
+              ))}
+            </div>
           </div>
         )}
 
