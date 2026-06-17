@@ -1,16 +1,16 @@
 import Link from "next/link";
 
 const serviceLinks = [
-  { label: "Sales Sidekick", href: "/#services" },
-  { label: "Support Sidekick", href: "/#services" },
-  { label: "Ops Sidekick", href: "/#services" },
-  { label: "Knowledge Sidekick", href: "/#services" },
+  { label: "AI Agents", href: "/packages/agentic" },
+  { label: "ERP + CRM", href: "/packages/erp" },
+  { label: "Websites", href: "/packages/website" },
+  { label: "All packages", href: "/packages" },
 ];
 
 const companyLinks = [
-  { label: "Process", href: "/#process" },
-  { label: "Pricing", href: "/#pricing" },
-  { label: "FAQ", href: "/#faq" },
+  { label: "Services", href: "/#services" },
+  { label: "Blog", href: "/blog" },
+  { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -33,7 +33,7 @@ export function Footer() {
 
           <div>
             <h4 className="font-mono text-[10px] tracking-[0.2em] text-text-subtle uppercase mb-5">
-              Services
+              Packages
             </h4>
             <ul className="space-y-3">
               {serviceLinks.map((link) => (
