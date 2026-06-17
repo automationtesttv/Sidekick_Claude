@@ -60,7 +60,7 @@ export function Hero() {
         {/* Headline */}
         <motion.h1
           {...fadeUp(STAGGER)}
-          className="font-display font-medium text-[clamp(3rem,7.5vw,5.8rem)] leading-[1.02] tracking-[-0.025em] text-text"
+          className="font-display font-medium text-[clamp(2rem,7vw,5.8rem)] leading-[1.02] tracking-[-0.025em] text-text"
         >
           AI sidekicks that do the work
           <br />

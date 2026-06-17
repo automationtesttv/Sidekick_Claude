@@ -22,7 +22,7 @@ export default function PackagesPage() {
           {/* Header */}
           <div className="text-center max-w-[720px] mx-auto mb-16">
             <SectionEyebrow label="packages" />
-            <h1 className="mt-5 font-display font-medium text-[clamp(2.6rem,6vw,4.2rem)] leading-[1.05] tracking-[-0.025em] text-text">
+            <h1 className="mt-5 font-display font-medium text-[clamp(1.9rem,6.5vw,4.2rem)] leading-[1.05] tracking-[-0.025em] text-text">
               Pricing built for{" "}
               <em className="font-serif font-normal italic">Malaysian</em>{" "}
               businesses.
@@ -76,7 +76,7 @@ export default function PackagesPage() {
 
           {/* Closing CTA */}
           <div className="bg-text text-bg rounded-3xl px-8 md:px-16 py-16 text-center">
-            <h2 className="font-display font-medium text-[clamp(1.8rem,4vw,2.8rem)] leading-[1.1] tracking-[-0.02em]">
+            <h2 className="font-display font-medium text-[clamp(1.45rem,5vw,2.8rem)] leading-[1.1] tracking-[-0.02em]">
               Not sure which fits?{" "}
               <em className="font-serif font-normal italic text-accent">
                 Let&apos;s talk.

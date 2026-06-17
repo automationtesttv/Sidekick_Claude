@@ -39,7 +39,7 @@ function StatCounter({
   return (
     <span
       ref={ref}
-      className="font-display font-medium text-[clamp(2.6rem,5vw,4rem)] leading-none tabular-nums text-bg"
+      className="font-display font-medium text-[clamp(2rem,6vw,4rem)] leading-none tabular-nums text-bg"
     >
       {"0" + suffix}
     </span>

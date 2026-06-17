@@ -70,7 +70,7 @@ export function CustomSidekick() {
             transition={{ duration: 0.6, ease: "easeOut" as const }}
           >
             <SectionEyebrow label="custom build" />
-            <h2 className="mt-5 font-display font-medium text-[clamp(2.2rem,4.5vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-text">
+            <h2 className="mt-5 font-display font-medium text-[clamp(1.6rem,5.2vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-text">
               Request a custom{" "}
               <em className="font-serif font-normal italic">AI sidekick.</em>
             </h2>

@@ -44,7 +44,7 @@ export default function Contact() {
         <div className="max-w-[640px] mx-auto">
           <div className="text-center mb-12">
             <SectionEyebrow label="get in touch" />
-            <h1 className="mt-5 font-display font-medium text-[clamp(2.6rem,6vw,4rem)] leading-[1.05] tracking-[-0.025em] text-text">
+            <h1 className="mt-5 font-display font-medium text-[clamp(1.9rem,6.5vw,4rem)] leading-[1.05] tracking-[-0.025em] text-text">
               Let&apos;s{" "}
               <em className="font-serif font-normal italic">talk.</em>
             </h1>

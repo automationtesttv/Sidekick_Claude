@@ -49,7 +49,7 @@ export default function AboutPage() {
           {/* Header */}
           <div className="max-w-[720px] mb-16">
             <SectionEyebrow label="about" />
-            <h1 className="mt-5 font-display font-medium text-[clamp(2.6rem,6vw,4.2rem)] leading-[1.05] tracking-[-0.025em] text-text">
+            <h1 className="mt-5 font-display font-medium text-[clamp(1.9rem,6.5vw,4.2rem)] leading-[1.05] tracking-[-0.025em] text-text">
               AI that does the work,{" "}
               <em className="font-serif font-normal italic">
                 not just the talking.
@@ -89,7 +89,7 @@ export default function AboutPage() {
           <div className="bg-text text-bg rounded-2xl px-8 md:px-12 py-10 grid grid-cols-3 gap-6 mb-20">
             {stats.map((s) => (
               <div key={s.label}>
-                <div className="font-display font-medium text-[clamp(1.8rem,4vw,2.8rem)] leading-none text-bg">
+                <div className="font-display font-medium text-[clamp(1.45rem,5vw,2.8rem)] leading-none text-bg">
                   {s.value}
                 </div>
                 <p className="mt-2 text-sm text-bg/65 leading-snug">{s.label}</p>
@@ -99,7 +99,7 @@ export default function AboutPage() {
 
           {/* Values */}
           <div className="mb-20">
-            <h2 className="font-display font-medium text-[clamp(1.8rem,4vw,2.6rem)] leading-[1.1] tracking-[-0.02em] text-text mb-10">
+            <h2 className="font-display font-medium text-[clamp(1.45rem,5vw,2.6rem)] leading-[1.1] tracking-[-0.02em] text-text mb-10">
               What we{" "}
               <em className="font-serif font-normal italic">believe.</em>
             </h2>
@@ -128,7 +128,7 @@ export default function AboutPage() {
 
           {/* CTA */}
           <div className="bg-surface border border-border rounded-3xl px-8 md:px-14 py-14 text-center">
-            <h2 className="font-display font-medium text-[clamp(1.8rem,4vw,2.6rem)] leading-[1.1] tracking-[-0.02em] text-text">
+            <h2 className="font-display font-medium text-[clamp(1.45rem,5vw,2.6rem)] leading-[1.1] tracking-[-0.02em] text-text">
               Let&apos;s build your{" "}
               <em className="font-serif font-normal italic">sidekick.</em>
             </h2>

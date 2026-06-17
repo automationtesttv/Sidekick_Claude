@@ -31,7 +31,7 @@ export function Comparison() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: "easeOut" as const }}
-            className="mt-5 font-display font-medium text-[clamp(2.2rem,4.5vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-text"
+            className="mt-5 font-display font-medium text-[clamp(1.6rem,5.2vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-text"
           >
             Most teams are still doing this the{" "}
             <em className="font-serif font-normal italic">hard way.</em>

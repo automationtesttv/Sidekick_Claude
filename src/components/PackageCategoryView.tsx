@@ -28,7 +28,7 @@ export function PackageCategoryView({ category }: { category: PackageCategory })
             </span>
             <SectionEyebrow label={category.eyebrow} />
           </div>
-          <h1 className="font-display font-medium text-[clamp(2.4rem,5.5vw,4rem)] leading-[1.05] tracking-[-0.025em] text-text">
+          <h1 className="font-display font-medium text-[clamp(1.85rem,6vw,4rem)] leading-[1.05] tracking-[-0.025em] text-text">
             {category.title}{" "}
             <em className="font-serif font-normal italic">
               {category.titleEmphasis}
@@ -100,7 +100,7 @@ export function PackageCategoryView({ category }: { category: PackageCategory })
 
         {/* CTA */}
         <div className="mt-20 bg-text text-bg rounded-3xl px-8 md:px-16 py-16 text-center">
-          <h2 className="font-display font-medium text-[clamp(1.8rem,4vw,2.8rem)] leading-[1.1] tracking-[-0.02em]">
+          <h2 className="font-display font-medium text-[clamp(1.45rem,5vw,2.8rem)] leading-[1.1] tracking-[-0.02em]">
             Ready to{" "}
             <em className="font-serif font-normal italic text-accent">
               get started?

@@ -39,7 +39,7 @@ export function FinalCTA() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, ease: "easeOut" as const, delay: 0.05 }}
-              className="font-display font-medium text-[clamp(2.4rem,6vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-bg"
+              className="font-display font-medium text-[clamp(1.9rem,6.5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-bg"
             >
               Ready to meet your{" "}
               <em className="font-serif font-normal italic text-accent">

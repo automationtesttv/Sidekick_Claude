@@ -34,7 +34,7 @@ export function FAQ() {
       <div className="max-w-[1280px] mx-auto">
         <div className="text-center max-w-[700px] mx-auto mb-16">
           <SectionEyebrow number="06" label="questions" />
-          <h2 className="mt-5 font-display font-medium text-[clamp(2.2rem,4.5vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-text">
+          <h2 className="mt-5 font-display font-medium text-[clamp(1.6rem,5.2vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-text">
             Things people{" "}
             <em className="font-serif font-normal italic">ask.</em>
           </h2>

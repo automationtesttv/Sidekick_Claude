@@ -23,7 +23,7 @@ export default function BlogPage() {
           {/* Header */}
           <div className="max-w-[720px] mb-16">
             <SectionEyebrow label="blog" />
-            <h1 className="mt-5 font-display font-medium text-[clamp(2.6rem,6vw,4.2rem)] leading-[1.05] tracking-[-0.025em] text-text">
+            <h1 className="mt-5 font-display font-medium text-[clamp(1.9rem,6.5vw,4.2rem)] leading-[1.05] tracking-[-0.025em] text-text">
               Notes on building{" "}
               <em className="font-serif font-normal italic">leaner.</em>
             </h1>
@@ -46,7 +46,7 @@ export default function BlogPage() {
                 {formatDate(featured.date)} · {featured.readTime}
               </span>
             </div>
-            <h2 className="font-display font-medium text-[clamp(1.6rem,3.5vw,2.4rem)] leading-[1.12] tracking-[-0.02em] text-text mb-3 max-w-[700px]">
+            <h2 className="font-display font-medium text-[clamp(1.3rem,4.5vw,2.4rem)] leading-[1.12] tracking-[-0.02em] text-text mb-3 max-w-[700px]">
               {featured.title}
             </h2>
             <p className="text-text-muted text-[1.05rem] leading-[1.65] max-w-[640px] mb-6">

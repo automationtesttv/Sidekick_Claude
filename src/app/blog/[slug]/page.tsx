@@ -57,7 +57,7 @@ export default async function BlogPostPage({
             </span>
           </div>
 
-          <h1 className="font-display font-medium text-[clamp(2rem,5vw,3.2rem)] leading-[1.08] tracking-[-0.025em] text-text mb-10">
+          <h1 className="font-display font-medium text-[clamp(1.6rem,5.5vw,3.2rem)] leading-[1.08] tracking-[-0.025em] text-text mb-10">
             {post.title}
           </h1>
 

@@ -64,6 +64,20 @@ html {
   font-size: 19px;
 }
 
+/* Scale the base font down on smaller screens so all rem-based
+   text, padding, and gaps shrink proportionally on mobile. */
+@media (max-width: 1024px) {
+  html {
+    font-size: 17.5px;
+  }
+}
+
+@media (max-width: 640px) {
+  html {
+    font-size: 16px;
+  }
+}
+
 body {
   background-color: var(--bg);
   color: var(--text);
